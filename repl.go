@@ -4,16 +4,17 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
+
+	"github.com/camescasse/pokedexcli/internal/pokeapi"
 )
 
-func startRepl() {
+func startRepl(config *config) {
 	reader := bufio.NewReader(os.Stdin)
 	commands := getCommands()
 
 	for {
 		fmt.Printf("pokedex > ")
-		// os.Stdout.Sync()
+		os.Stdout.Sync()
 
 		input, err := reader.ReadString('\n')
 		if err != nil {
@@ -28,8 +29,9 @@ func startRepl() {
 		}
 
 		if command, exists := commands[commandName]; exists {
-			err := command.callback()
+			err := command.callback(config)
 			if err != nil {
+				fmt.Println()
 				fmt.Fprintln(os.Stderr, "error executing command:", err)
 				fmt.Println()
 			}
@@ -40,16 +42,16 @@ func startRepl() {
 	}
 }
 
-func cleanInput(text string) []string {
-	output := strings.ToLower(text)
-	words := strings.Fields(output)
-	return words
+type config struct {
+	pokeapiClient pokeapi.Client
+	Next          *string
+	Previous      *string
 }
 
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*config) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -64,6 +66,15 @@ func getCommands() map[string]cliCommand {
 			description: "Exit the Pokedex",
 			callback:    commandExit,
 		},
+		"map": {
+			name:        "map",
+			description: "Displays the next 20 location areas in Pokemon",
+			callback:    commandMapf,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Displays the previous 20 location areas in Pokemon",
+			callback:    commandMapb,
+		},
 	}
-
 }
