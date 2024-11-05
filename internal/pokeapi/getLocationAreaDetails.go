@@ -32,6 +32,7 @@ func (c *Client) GetLocationAreaDetails(areaName string) (ResponseLocationAreaDe
 	if err != nil {
 		return ResponseLocationAreaDetails{}, err
 	}
+	defer res.Body.Close()
 
 	data, err := io.ReadAll(res.Body)
 	if err != nil {
