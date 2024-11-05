@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func commandMapf(config *config) error {
+func commandMapf(config *config, parameter string) error {
 	locationAreas, err := config.pokeapiClient.GetLocationAreas(config.Next)
 	if err != nil {
 		return err
@@ -22,7 +22,7 @@ func commandMapf(config *config) error {
 	return nil
 }
 
-func commandMapb(config *config) error {
+func commandMapb(config *config, parameter string) error {
 	if config.Previous == nil {
 		return errors.New("no previous location areas to get")
 	}
