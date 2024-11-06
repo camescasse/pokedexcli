@@ -7,7 +7,13 @@ import (
 )
 
 func main() {
-	client := pokeapi.NewClient(time.Second*10, time.Minute*2)
+
+	const (
+		requestTimeout = 10 * time.Second
+		cacheInterval  = 2 * time.Minute
+	)
+
+	client := pokeapi.NewClient(requestTimeout, cacheInterval)
 	config := &config{
 		pokeapiClient: client,
 		pokedex:       map[string]pokeapi.ResponsePokemon{},
