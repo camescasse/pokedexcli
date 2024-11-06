@@ -8,9 +8,6 @@ import (
 )
 
 func (c *Client) GetPokemon(name string) (ResponsePokemon, error) {
-	if name == "" {
-		return ResponsePokemon{}, errors.New("pokemon name required")
-	}
 	url := baseUrl + "/pokemon/" + name
 
 	pokemon := ResponsePokemon{}

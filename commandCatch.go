@@ -25,15 +25,15 @@ func commandCatch(config *config, args ...string) error {
 	odds := float64(rand.Intn(100) + 1)
 
 	fmt.Println()
-	fmt.Printf("Throwing Pokeball at %s...\n", name)
+	fmt.Printf("Throwing Pokeball at %s...\n", pokemon.Name)
 	if catchRate < odds {
-		fmt.Printf("%s escaped!\n", name)
+		fmt.Printf("%s escaped!\n", pokemon.Name)
 		fmt.Println()
 		return nil
 	}
 
 	config.pokedex[name] = pokemon
-	fmt.Printf("%s was caught!\n", name)
+	fmt.Printf("%s was caught!\n", pokemon.Name)
 	fmt.Println()
 
 	return nil
