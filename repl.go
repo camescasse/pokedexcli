@@ -24,13 +24,16 @@ func startRepl(config *config) {
 		}
 
 		words := cleanInput(input)
+		if len(words) == 0 {
+			continue
+		}
+
 		commandName := words[0]
 		if commandName == "" {
 			continue
 		}
 
 		args := []string{}
-
 		if len(words) > 1 {
 			args = words[1:]
 		}
@@ -43,7 +46,9 @@ func startRepl(config *config) {
 				fmt.Println()
 			}
 		} else {
-			fmt.Printf("unknown command: %s\ntype 'help' for available commands\n", input)
+			fmt.Println()
+			fmt.Printf("unknown command: %s", input)
+			fmt.Println("type 'help' for available commands")
 			fmt.Println()
 		}
 	}
