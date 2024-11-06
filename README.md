@@ -1,6 +1,6 @@
 # PokedexCLI
 
-CLI REPL application to interact with [pokeapi.co](pokeapi.co)
+CLI REPL application to interact with [pokeapi.co](https://pokeapi.co/)
 
 ## Installation
 
